@@ -1,0 +1,143 @@
+<div class="d-flex justify-content-center">
+  <div class="align-content-center">
+    <div class="card mt-2 bg-light">
+      <div class="card-body">
+        <%= form_with(model: recipe) do |form| %>
+          <% if recipe.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
+
+              <ul>
+                <% recipe.errors.each do |error| %>
+                  <li><%= error.full_message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="container ml-2 mt-2">
+            <div class="row mt-1">
+              
+                <div class="col-4">
+                  <label for="recipe_name">Όνομα Συνταγής</label>
+                </div>
+                <div class="col-4">
+                  <%= form.text_field :name, class:"form-control" %>
+                </div>
+              
+            </div>
+
+            <div class="row mt-1">
+              
+                <div class="col-4">
+                  <label for="recipe_name">Προέλευση Συνταγής</label>
+                </div>
+                <div class="col-4">
+                  <%= form.text_field :orient, class:"form-control" %>
+                </div>
+              
+            </div>
+
+            <div class="row mt-1">
+              
+                <div class="col-4">
+                  <label for="recipe_name">Κατηγορία Συνταγής</label>
+                </div>
+                <div class="col-2">  
+                  <% GlobalSetting.find_by(name: "categories").value.each do |category| %>
+                    <div class="d-flex justify-content-between">
+                      <label for="recipe-<%= category %>"><%= category %></label><br>
+                      <%= form.check_box :categories, {multiple: true, class: 'custom-control-input'}, category, nil %>
+                    </div> 
+                  <% end %>
+                </div> 
+              
+            </div>
+
+            <div class="row mt-1">
+              
+                <div class="col-4">
+                  <label for="recipe_name">Υφή</label>
+                </div>
+                <div class="col-4">
+                  <%= form.text_field :shape, class:"form-control" %>
+                </div>
+              
+
+            <div class="row mt-1">  
+              
+                <div class="col-4">
+                  <label for="recipe_name">Δυσκολία</label>
+                </div>
+                <div class="col-1">
+                  <%= form.number_field :difficulty, class:"form-control", max: 5, min: 1 %>
+                </div>
+              
+            </div>
+
+            <div class="row mt-1"> 
+              
+                <div class="col-4">
+                  <label for="recipe_name">Χρόνος Εκτέλεσης</label>
+                </div>
+                <div class="col-1">
+                <%= form.number_field :excecution_time, class:"form-control", min: 0 %>
+                </div>
+              
+            </div>
+
+            <div class="row mt-1"> 
+                <div class="col-4">
+                  <%= render 'materials', recipe: @recipe %>
+                  <%= form.hidden_field :materials %>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-1"> 
+                <div class="col-4">
+                  <label for="recipe_name">Οδηγίες</label>
+                </div>
+                <div class="col-8">
+                  <%= form.text_area :instructions, class:"form-control", rows:"5", placeholder:"Περιγραφή της συνταγής σε τουλάχιστον 50 χαρακτήρες." %>
+                </div>
+            </div>
+
+            <div class="row mt-1"> 
+              
+                <div class="col-4">
+                  <label for="recipe_name">Αριθμός μερίδων</label>
+                </div>
+                <div class="col-1">
+                  <%= form.number_field :portions, class:"form-control", min: 1 %>
+                </div>
+              
+            </div>
+
+            <div class="row mt-2"> 
+              <div class="col-4">
+                <label for="recipe_name">Φωτογραφία Συνταγής</label>
+              </div>
+              <div class="col-4">
+                <% if  @recipe.photo.attached? %>
+                  <%= image_tag @recipe.photo, id:"recipe_photo", style:"width:200px;", class: @recipe.photo.attached? ? "" : "d-none"%>
+                <% end %>
+                <span class="cursor-pointer <%= 'd-none' if !@recipe.photo.attached? %>" id="resetPhoto" onclick="resetPhoto()"><i class="fa fa-refresh" aria-hidden="true"></i>Αναίρεση</span>
+                <div id="recipe_photo_form" class="col-4 <%= 'd-none' if @recipe.photo.attached? %>">
+                  <%= form.file_field :photo %>
+                </div>
+              </div>
+            </div>
+
+            <%= form.hidden_field :from_admin, value: current_user == true %>
+            <%= form.hidden_field :for_review, value: false %>
+          </div>
+
+          <div class="d-flex justify-content-between mt-2">
+            <a class="btn btn-outline-dark" href="<%= recipes_path %>">Συνταγές</a>
+            <%= form.submit "Καταχώρηση Συνταγής", class:"btn btn-dark" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

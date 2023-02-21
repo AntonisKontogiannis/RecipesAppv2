@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<div class="mx-5">
+  <h1>Ρυθμίσεις</h1>
+
+  <table class="table table-dark">
+    <thead class="table-secondary">
+      <tr>
+        <th scope="col">Όνομα</th>
+        <th scope="col">Τιμή</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @global_settings.each do |setting| %>
+        <tr>
+            <%= form_with(model: setting, url: global_settings_update_path) do |form| %>
+                <td><%= setting.name %></td>
+                <%= form.hidden_field :id, value: setting.id %>
+                <td><%= form.text_area :value, value: setting.value.join(",") %></td>
+                <td><%= form.submit 'Ανανέωση', class: "btn btn-outline-warning" %></td>
+            <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <a class="btn btn-outline-dark" href="<%= recipes_path %>">Πίσω</a>
+</div>
+

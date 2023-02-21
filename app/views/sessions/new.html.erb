@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-10">
+            <h1>Είσοδος Διαχειριστή</h1>
+            <%= form_with(scope: :session, url: login_path, class: "shadow p-3 mb-3 bg-dark", local: true) do |f|%>
+                <div class="form-group row mt-2">
+                    <label class="col-2 col-form-label text-light" for="session_username">Όνομα</label>
+                    <div class="col-10">
+                    <%= f.text_field :username, class: "form-control shadow rounded", placeholder: "Όνομα Χρήστη"   %>
+                    </div>
+                </div>
+                <div class="form-group row mt-2">
+                    <label class="col-2 col-form-label text-light" for="session_username">Κωδικός</label>
+                    <div class="col-10">
+                    <%= f.password_field :password, class: "form-control shadow rounded", placeholder: "Κωδικός"   %>
+                    </div>
+                </div>     
+                <div class="form-group mt-2">
+                    <%= f.submit "Είσοδος" , class: "btn btn-outline-light btn-lg" %>
+                </div>
+            <% end %>
+            <%= link_to 'Πίσω', root_path, class: "btn btn-dark" %> 
+        </div>
+    </div>
+</div>  

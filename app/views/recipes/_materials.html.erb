@@ -1,0 +1,74 @@
+<div id='editor_holder_materials'></div>
+
+<script>      
+      // Initialize the editor with a JSON schema
+      var editor_materials = new JSONEditor(document.getElementById('editor_holder_materials'),{
+        theme: 'bootstrap5',
+        iconlib: "fontawesome4",
+        startval: JSON.parse('<%= @materials.nil? ? {} : @materials.html_safe %>'),
+        prompt_before_delete: false,
+        schema: {
+            "title": "Συστατικά",
+            "type": "array",
+            "options": {
+                "collapsed": false,
+                "disable_collapse": true,
+                "disable_edit_json": true,
+                "disable_properties": true
+            },
+            "format": "grid-strict",
+            "uniqueItems": true,
+            "items": {
+                "type": "object",
+                "title": "Συστατικό",
+                "required": [
+                "Όνομα",
+                "Ποσότητα",
+                "Μονάδα"
+                ],
+                "options": {
+                "collapsed": false,
+                "disable_collapse": true,
+                "disable_edit_json": true,
+                "disable_properties": true,
+                "show_errors": "never"
+                },
+                "properties": {
+                    "Όνομα": {
+                        "options": {
+                        "inputAttributes": {
+                            "placeholder": "Όνομα συστατικού"
+                        }
+                        },
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "Ποσότητα": {
+                        "options": {
+                        "inputAttributes": {
+                            "placeholder": "Ποσότητα συστατικού"
+                        }
+                        },
+                        "minLength": 1,
+                        "type": "number"
+                    },
+                    "Μονάδα": {
+                        "options": {
+                        "inputAttributes": {
+                            "placeholder": "Μονάδα μέτρησης"
+                        }
+                        },
+                        "minLength": 1,
+                        "type": "string"
+                    }
+                }
+            }
+        }
+      })
+
+    editor_materials.on('change',() => {
+        // console.log(editor_materials.getValue());
+        document.getElementById('recipe_materials').value = JSON.stringify(editor_materials.getValue());
+        console.log(document.getElementById('recipe_materials').value);
+    });
+</script>

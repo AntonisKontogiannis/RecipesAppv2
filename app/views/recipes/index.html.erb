@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<div class="mx-5">
+  <h1>Όλες οι Συνταγές</h1>
+  <%= form_with(scope: :session, url: recipes_path, method: :get, class: "shadow p-3 mb-3 bg-dark", local: true) do |f|%>
+    <div class="d-flex justify-content-between">
+      <%= f.text_field :name, value: (params[:session][:name] if !params[:session].nil? and !params[:session][:name].blank?), class: "form-control shadow rounded", placeholder: "Τίτλος" %>
+      <%= f.text_field :orient, value: (params[:session][:orient] if !params[:session].nil? and !params[:session][:orient].blank?), class: "form-control shadow rounded", placeholder: "Προέλευση" %>
+      <%= f.text_field :shape, value: (params[:session][:shape] if !params[:session].nil? and !params[:session][:shape].blank?), class: "form-control shadow rounded", placeholder: "Υφή" %>
+      <%= f.text_field :category, value: (params[:session][:category] if !params[:session].nil? and !params[:session][:category].blank?) , class: "form-control shadow rounded", placeholder: "Κατηγορία" %>
+      <% if current_user == true %>
+        <label class="text-light mt-1" for="for_review">Αναφορές</label><br>
+        <%= f.check_box :for_review, class:"ml-1", checked: (params[:session][:for_review] == "1" if !params[:session].nil? and !params[:session][:for_review].blank?) %>
+      <% end %>
+      <%= f.submit 'Αναζήτηση' %>
+    </div>
+  <% end %>
+
+  <table class="table table-dark">
+    <thead class="table-secondary">
+      <tr>
+        <th scope="col">Τίτλος</th>
+        <th scope="col">Προέλευση</th>
+        <th scope="col">Δυσκολία</th>
+        <th scope="col">Χρόνος Εκτέλεσης</th>
+        <th scope="col">Μερίδες</th>
+        <th scope="col">Υφή</th>
+        <th scope="col">Οδηγίες</th>
+        <th scope="col">Αξιολογήσεις</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @recipes.each do |recipe| %>
+        <tr>
+          <td><%= recipe.name %></td>
+          <td><%= recipe.orient %></td>
+          <td><%= recipe.difficulty %> στα 5</td>
+          <td><%= recipe.excecution_time %>  <%= recipe.excecution_time > 1 ? 'λεπτά' : 'λεπτό' %></td>
+          <td><%= recipe.portions %></td>
+          <td><%= recipe.shape %></td>
+          <td><%= recipe.instructions.truncate(30, separator: ' ') %></td>
+          <td><%= recipe.reviews.empty? ? '-' : "#{recipe.reviews_count.round(2)}/5" %></td>
+          <td class="table-light"><a class="btn btn-outline-dark" href="<%= recipe_path(recipe) %>">Προβολή</a>
+          <% if current_user %>
+            <a class="btn btn-outline-warning" href="<%= edit_recipe_path(recipe) %>">Έπεξεργασία</a>
+            <%= link_to 'Διαγραφή', recipe, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger' %>
+          <% end %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+

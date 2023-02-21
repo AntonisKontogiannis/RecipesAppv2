@@ -1,0 +1,12 @@
+<nav class="navbar navbar-light bg-dark justify-content-between sticky-top">
+  <a class="navbar-brand mx-2 text-light fs-1">RecipesApp</a>
+  <div class="ml-2">
+    <a class="btn btn-outline-light my-2" href="<%= new_recipe_path %>">Νέα Συνταγή</a>
+    <% if current_user == true %>
+      <a class="btn btn-outline-light my-2 mx-4" href="<%= global_settings_index_path %>">Ρυθμίσεις</a>
+      <%= link_to 'Αποσύνδεση', logout_path, method: :delete, class: 'btn btn-outline-light my-2 mx-4' %>
+    <% else %>
+      <a class="btn btn-outline-light my-2 mx-4" href="<%= login_path %>">Είσοδος</a>
+    <% end %>
+  </div>
+</nav>
