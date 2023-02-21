@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  orient: MyString
+  difficulty: 1
+  excecution_time: 1
+  instructions: MyText
+  portions: 1
+  photo: MyString
+  for_review: false
+  from_admin: false
+  shape: MyString
+
+two:
+  name: MyString
+  orient: MyString
+  difficulty: 1
+  excecution_time: 1
+  instructions: MyText
+  portions: 1
+  photo: MyString
+  for_review: false
+  from_admin: false
+  shape: MyString
