@@ -1,6 +1,6 @@
 class Recipe < ApplicationRecord
     has_many :reviews
-    validates :name, presence: true, length: { minimum: 3, maximum: 100}, uniqueness: true
+    validates :name, presence: true, length: { minimum: 3, maximum: 100}
     validates :orient, presence: true, length: {minimum: 4, maximum: 100}
     validates :instructions, presence: true, length: {minimum: 50, maximum: 100000}, uniqueness: true
     validates :shape, presence: true, length: {minimum: 4, maximum: 100}
