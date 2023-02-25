@@ -46,7 +46,7 @@
           <div id="collapseMaterials" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionMaterials">
             <div id="collapseMaterialsBody" class="accordion-body">
               <% @recipe_materials.each do |material| %>
-                <li><%= material["Ποσότητα"] %> <%= material["Μονάδα"] %> <%= material["Όνομα"] %></li>
+                <li><%= material["Ποσότητα"].round(2) %> <%= material["Μονάδα"].nil? ? "" : material["Μονάδα"] %> <%= material["Όνομα"] %></li>
               <% end %>
             </div>
           </div>
@@ -97,8 +97,13 @@
     document.getElementById("collapseMaterialsBody").innerHTML = "";
     console.log(materials_per_portion);
     materials_per_portion.forEach(element => {
-      var value_per_portion = element["Ποσότητα"]*value;
-      var text = `${value_per_portion} ${element["Μονάδα"]} ${element["Όνομα"]}`;
+      var value_per_portion = Number((element["Ποσότητα"]*value).toFixed(1));
+      if (element["Μονάδα"] == null){
+        var unit = '';
+      } else {
+        var unit = element["Μονάδα"];
+      }
+      var text = `${value_per_portion} ${unit} ${element["Όνομα"]}`;
       document.getElementById("collapseMaterialsBody").insertAdjacentHTML("beforeend", `<li> ${text} </li>`)
     });
   }

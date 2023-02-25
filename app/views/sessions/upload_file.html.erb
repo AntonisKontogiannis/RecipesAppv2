@@ -1,0 +1,15 @@
+<h1>Δημιουργία Συνταγών από Αρχείο</h1>
+
+<div class="d-flex justify-content-center">
+    <div class="card mt-3">
+        <div class="card-body">
+            <%= form_with url: bulk_add_recipes_path, method: :post do |f| %>
+                <%= f.file_field :recipes_file %>
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+                <a class="btn btn-outline-dark" href="<%= recipes_path %>">Συνταγές</a>
+                <%= f.submit 'Ανέβασμα', class:"btn btn-dark" %>
+            <% end %>
+        </div>
+    </div>
+</div>
