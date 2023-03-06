@@ -64,8 +64,8 @@
 
       <%= form_with(model: @review) do |form| %>
         <%= form.hidden_field :recipe_id, value: @recipe.id %>
-        <%= form.number_field :rating, max: 5, min: 0 %>
-        <%= form.submit 'Αξιολόγηση', class:"btn btn-sm btn-outline-dark" %>
+        <%= form.number_field :rating, max: 5, min: 0, onchange: "document.getElementById('submit-review').disabled = false;" %>
+        <%= form.submit 'Αξιολόγηση', id:"submit-review", class:"btn btn-sm btn-outline-dark", disabled: true %>
       <% end %>
       <%= form_with(model: @recipe) do |form| %>
         <%= form.hidden_field :for_review, value: true %>
