@@ -17,7 +17,9 @@ class Recipe < ApplicationRecord
         else
             count = 0.0
             self.reviews.each do |review|
-                count = count + review.rating
+                if not review.rating.nil?
+                    count = count + review.rating
+                end
             end
             result = count/total_reviews
         end
