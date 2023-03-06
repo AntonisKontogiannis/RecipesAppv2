@@ -12,7 +12,7 @@ class Recipe < ApplicationRecord
 
     def reviews_count
         total_reviews = self.reviews.size
-        if total_reviews ==  0
+        if total_reviews ==  0 or total_reviews.nil?
             result = 0
         else
             count = 0.0
