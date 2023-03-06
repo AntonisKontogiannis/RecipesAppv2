@@ -40,7 +40,7 @@
           <td><%= recipe.portions %></td>
           <td><%= recipe.shape %></td>
           <td><%= recipe.instructions.truncate(30, separator: ' ') %></td>
-          <td><%= recipe.reviews.empty? ? '-' : "#{recipe.reviews_count.round(2)}/5" %></td>
+          <td><%= recipe.reviews.nil? ? '-' : "#{recipe.reviews_count.round(2)}/5" %></td>
           <td class="table-light"><a class="btn btn-outline-dark" href="<%= recipe_path(recipe) %>">Προβολή</a>
           <% if current_user %>
             <a class="btn btn-outline-warning" href="<%= edit_recipe_path(recipe) %>">Έπεξεργασία</a>
