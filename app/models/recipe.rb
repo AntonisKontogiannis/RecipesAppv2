@@ -9,6 +9,7 @@ class Recipe < ApplicationRecord
     validates :excecution_time, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 1000}
     validates :portions, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100}
     has_one_attached :photo
+
     def reviews_count
         total_reviews = self.reviews.size
         if total_reviews ==  0
@@ -16,7 +17,7 @@ class Recipe < ApplicationRecord
         else
             count = 0.0
             self.reviews.each do |review|
-                count += review.rating
+                count = count + review.rating
             end
             result = count/total_reviews
         end
