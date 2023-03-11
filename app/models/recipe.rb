@@ -7,7 +7,7 @@ class Recipe < ApplicationRecord
     validates :categories, presence: true
     validates :difficulty, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 5}
     validates :excecution_time, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 1000}
-    validates :portions, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100}
+    validates :portions, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 100}
     has_one_attached :photo
 
     def reviews_count
